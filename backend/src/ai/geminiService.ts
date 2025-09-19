@@ -1,4 +1,4 @@
-import { DashboardData, ProcessParameters, EnvironmentalData } from '../../../data/models';
+import { DashboardData, ProcessParameters, EnvironmentalData } from '../data/models';
 
 export interface GeminiResponse {
   response: string;

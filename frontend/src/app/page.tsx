@@ -51,7 +51,7 @@ import {
   KeyboardArrowUp
 } from '@mui/icons-material';
 import io, { Socket } from 'socket.io-client';
-import { DashboardData, SensorReading, ProcessParameters } from '../../../data/models';
+import { DashboardData, ProcessParameters } from '../../../data/models';
 import AIAssistant from '../components/AIAssistant';
 import RealTimeTestDashboard from '../components/RealTimeTestDashboard';
 import QualityConsistencyMonitor from '../components/QualityConsistencyMonitor';
@@ -78,7 +78,7 @@ export default function FuturisticDashboard() {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const [testMode, setTestMode] = useState(false);
   const [activeView, setActiveView] = useState('dashboard');
-  const [socket, setSocket] = useState<Socket | null>(null);
+  // const [socket, setSocket] = useState<Socket | null>(null); // Remove unused socket
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [settingsDialogOpen, setSettingsDialogOpen] = useState(false);
 
@@ -1144,7 +1144,7 @@ export default function FuturisticDashboard() {
 
   useEffect(() => {
     // Initialize socket connection
-    const newSocket = io(process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001', {
+    const newSocket = io(process.env.NEXT_PUBLIC_BACKEND_URL || 'https://cement-line.onrender.com', {
       transports: ['websocket', 'polling'],
       upgrade: true,
       rememberUpgrade: true,
@@ -1155,7 +1155,7 @@ export default function FuturisticDashboard() {
       reconnectionAttempts: 5
     });
 
-    setSocket(newSocket);
+    // setSocket(newSocket); // Remove unused socket setter
 
     newSocket.on('connect', () => {
       setIsConnected(true);
@@ -1499,7 +1499,7 @@ export default function FuturisticDashboard() {
 
         <Box sx={{ flex: 1, py: 2 }}>
           <List>
-            {menuItems.map((item, index) => {
+            {menuItems.map((item) => {
               const Icon = item.icon;
               const isActive = activeView === item.id;
               const isHovered = hoveredItem === item.id;

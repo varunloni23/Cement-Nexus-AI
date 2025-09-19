@@ -5,7 +5,7 @@ import {
   QualityMetrics, 
   EnvironmentalData,
   DashboardData 
-} from '../../../data/models';
+} from './models';
 
 export interface RealDataSource {
   name: string;

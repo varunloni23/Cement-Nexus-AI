@@ -8,7 +8,7 @@ import {
   EnvironmentalData,
   SimulationConfig,
   PlantOverview
-} from '../../../data/models';
+} from '../data/models';
 import RealDataAdapter from '../data/realDataAdapter';
 
 export class CementPlantSimulator {

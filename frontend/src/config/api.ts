@@ -1,6 +1,6 @@
 // API Configuration for CementAI Nexus Frontend
-export const API_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001';
-export const WS_URL = process.env.NEXT_PUBLIC_WS_URL || 'ws://localhost:3001';
+export const API_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'https://cement-line.onrender.com';
+export const WS_URL = process.env.NEXT_PUBLIC_WS_URL || 'https://cement-line.onrender.com';
 
 // API endpoint configuration
 export const API_ENDPOINTS = {

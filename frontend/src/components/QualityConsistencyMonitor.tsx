@@ -1,24 +1,20 @@
 'use client'
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import {
   Box,
   Paper,
   Typography,
   Card,
   CardContent,
-  LinearProgress,
   Chip,
   Alert,
   AlertTitle,
   Button,
-  Divider,
   IconButton,
   Collapse
 } from '@mui/material';
 import {
-  LineChart,
-  Line,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -35,9 +31,7 @@ import {
   CheckCircle,
   AutoFixHigh,
   Science,
-  Analytics,
   ExpandMore,
-  Refresh,
   PlayArrow,
   Stop
 } from '@mui/icons-material';
@@ -78,7 +72,7 @@ export default function QualityConsistencyMonitor({ dashboardData }: QualityCons
   const [isExpanded, setIsExpanded] = useState(true);
   const [alertsCount, setAlertsCount] = useState({ critical: 0, high: 0, medium: 0 });
 
-  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001';
+  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'https://cement-line.onrender.com';
 
   // Quality thresholds for input parameters
   const qualityThresholds = {
@@ -113,9 +107,9 @@ export default function QualityConsistencyMonitor({ dashboardData }: QualityCons
 
     // Analyze fluctuations
     analyzeInputFluctuations(currentParams);
-  }, [dashboardData, isMonitoring]);
+  }, [dashboardData, isMonitoring]); // Remove problematic dependency
 
-  const analyzeInputFluctuations = (params: ProcessParameters) => {
+  const analyzeInputFluctuations = useCallback((params: ProcessParameters) => {
     const newFluctuations: QualityFluctuation[] = [];
     const alerts = { critical: 0, high: 0, medium: 0 };
 
@@ -165,9 +159,9 @@ export default function QualityConsistencyMonitor({ dashboardData }: QualityCons
 
     setFluctuations(newFluctuations);
     setAlertsCount(alerts);
-  };
+  }, []); // Add dependency array
 
-  const calculateTrend = (param: string, currentValue: number): QualityFluctuation['trend'] => {
+  const calculateTrend = (param: string, _currentValue: number): QualityFluctuation['trend'] => {
     if (historicalData.length < 3) return 'stable';
     
     const recent = historicalData.slice(-3).map(d => d[param as keyof InputMonitoringData] as number);

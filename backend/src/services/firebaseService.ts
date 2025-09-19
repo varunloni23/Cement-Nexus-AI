@@ -1,5 +1,5 @@
 import admin from 'firebase-admin';
-import { DashboardData, SensorReading, ProcessParameters } from '../../../data/models';
+import { DashboardData, SensorReading, ProcessParameters } from '../data/models';
 
 export class FirebaseService {
   private db: admin.database.Database | null = null;

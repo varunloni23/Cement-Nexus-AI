@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import {
   Box,
   Paper,
@@ -9,12 +9,10 @@ import {
   Typography,
   List,
   ListItem,
-  ListItemText,
   Avatar,
   Chip,
   Button,
-  Collapse,
-  Divider
+  Collapse
 } from '@mui/material';
 import {
   Send as SendIcon,
@@ -53,7 +51,7 @@ export default function AIAssistant({ dashboardData }: AIAssistantProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001';
+  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'https://cement-line.onrender.com';
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -81,7 +79,7 @@ export default function AIAssistant({ dashboardData }: AIAssistantProps) {
       window.removeEventListener('triggerQualityAnalysis', handleQualityAnalysisEvent);
       window.removeEventListener('triggerOptimization', handleOptimizationEvent as EventListener);
     };
-  }, [dashboardData]);
+  }, []); // Remove dependencies to avoid hoisting issues
 
   const handleSendMessage = async () => {
     if (!inputText.trim() || isLoading) return;
@@ -145,7 +143,7 @@ export default function AIAssistant({ dashboardData }: AIAssistantProps) {
     }, 100);
   };
 
-  const handleQualityAnalysis = async () => {
+  const handleQualityAnalysis = useCallback(async () => {
     if (!dashboardData) {
       setMessages(prev => [...prev, {
         id: Date.now().toString(),
@@ -204,9 +202,9 @@ export default function AIAssistant({ dashboardData }: AIAssistantProps) {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [dashboardData]); // Add dependency array
 
-  const handleOptimization = async (objective: 'quality' | 'energy' | 'production' | 'environment') => {
+  const handleOptimization = useCallback(async (objective: 'quality' | 'energy' | 'production' | 'environment') => {
     if (!dashboardData) {
       setMessages(prev => [...prev, {
         id: Date.now().toString(),
@@ -271,7 +269,7 @@ export default function AIAssistant({ dashboardData }: AIAssistantProps) {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [dashboardData]); // Add dependency array
 
   const quickQuestions = [
     "Why is energy consumption high today?",

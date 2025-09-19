@@ -19,8 +19,7 @@ import {
   AlertTitle,
   Switch,
   FormControlLabel,
-  TextField,
-  Divider
+  TextField
 } from '@mui/material';
 import { 
   LineChart, 
@@ -32,16 +31,13 @@ import {
   ResponsiveContainer 
 } from 'recharts';
 import {
-  PlayArrow,
-  Stop,
   Refresh,
   DataUsage,
   Speed,
-  Timeline,
   NetworkCheck
 } from '@mui/icons-material';
 import io from 'socket.io-client';
-import { DashboardData, SensorReading, ProcessParameters } from '../../../data/models';
+import { DashboardData, SensorReading } from '../../../data/models';
 
 const socket = io(process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001');
 
@@ -49,6 +45,13 @@ interface DataPoint {
   timestamp: string;
   value: number;
   sensor_id: string;
+}
+
+interface RealDataStatus {
+  dataSource: string;
+  recordCount: number;
+  currentIndex: number;
+  realDataEnabled: boolean;
 }
 
 export default function RealTimeTestDashboard() {
@@ -62,11 +65,11 @@ export default function RealTimeTestDashboard() {
   const [updateInterval, setUpdateInterval] = useState<number | null>(null);
   const [lastUpdate, setLastUpdate] = useState<Date | null>(null);
   const [realDataEnabled, setRealDataEnabled] = useState(false);
-  const [realDataStatus, setRealDataStatus] = useState<any>(null);
+  const [realDataStatus, setRealDataStatus] = useState<RealDataStatus | null>(null);
 
   // Calculate data rate
   const [dataRate, setDataRate] = useState(0);
-  const [dataRateHistory, setDataRateHistory] = useState<number[]>([]);
+  // Remove unused dataRateHistory variable
 
   useEffect(() => {
     // Connection events
@@ -93,7 +96,7 @@ export default function RealTimeTestDashboard() {
       if (updateInterval) {
         const rate = 60000 / updateInterval; // Convert to per minute
         setDataRate(rate);
-        setDataRateHistory(prev => [...prev.slice(-20), rate]);
+        // Remove dataRateHistory update
       }
 
       // Record sensor data for visualization
@@ -124,7 +127,7 @@ export default function RealTimeTestDashboard() {
   const clearData = () => {
     setDataHistory([]);
     setDataCount(0);
-    setDataRateHistory([]);
+    // Remove dataRateHistory clear
   };
 
   const requestManualUpdate = () => {
@@ -429,11 +432,11 @@ export default function RealTimeTestDashboard() {
                   border: '1px solid #00E5FF',
                   borderRadius: '8px'
                 }}
-                formatter={(value: any, name: string) => [
+                formatter={(value: number, name: string) => [
                   `${value.toFixed(2)}`,
                   name
                 ]}
-                labelFormatter={(label: any) => `Sample ${label}`}
+                labelFormatter={(label: string) => `Sample ${label}`}
               />
               <Line 
                 type="monotone" 

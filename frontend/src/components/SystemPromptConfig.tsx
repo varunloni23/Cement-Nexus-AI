@@ -19,8 +19,7 @@ import {
   Tabs,
   Accordion,
   AccordionSummary,
-  AccordionDetails,
-  Divider
+  AccordionDetails
 } from '@mui/material';
 import {
   Settings as SettingsIcon,
@@ -279,7 +278,7 @@ export default function SystemPromptConfig({ open, onClose }: SystemPromptConfig
     setLoading(false);
   };
 
-  const useTemplate = (template: PromptTemplate) => {
+  const applyTemplate = (template: PromptTemplate) => {
     setCurrentPrompt(template.prompt);
     setSelectedTab(0); // Switch to custom tab
   };
@@ -407,7 +406,7 @@ export default function SystemPromptConfig({ open, onClose }: SystemPromptConfig
                         <Button
                           variant="outlined"
                           size="small"
-                          onClick={() => useTemplate(template)}
+                          onClick={() => applyTemplate(template)}
                         >
                           Use This Template
                         </Button>
