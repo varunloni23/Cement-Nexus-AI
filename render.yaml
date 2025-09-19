@@ -11,6 +11,16 @@ services:
       - key: PORT
         value: 10000
       - key: GEMINI_API_KEY
-        sync: false
+        value: AIzaSyDDyDufEbJ2WcN-PWMiHrIBQYcN7DGliUo
       - key: FRONTEND_URL
-        sync: false
+        value: https://localhost:3000
+      - key: FIREBASE_PROJECT_ID
+        value: nexus-4b4ba
+      - key: FIREBASE_DATABASE_URL
+        value: https://nexus-4b4ba-default-rtdb.firebaseio.com/
+      - key: SIMULATION_INTERVAL
+        value: 5000
+      - key: PLANT_CAPACITY
+        value: 2000
+      - key: SENSOR_COUNT
+        value: 50

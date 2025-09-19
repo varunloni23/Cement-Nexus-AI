@@ -4,7 +4,7 @@ import { createServer } from 'http';
 import { Server } from 'socket.io';
 import dotenv from 'dotenv';
 import { CementPlantSimulator } from './simulation/dataGenerator';
-import { DashboardData, SimulationConfig } from '../../data/models';
+import { DashboardData, SimulationConfig } from './data/models';
 import { createGeminiService } from './ai/geminiService';
 import { createFirebaseService } from './services/firebaseService';
 
