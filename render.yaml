@@ -13,7 +13,7 @@ services:
       - key: GEMINI_API_KEY
         value: AIzaSyDDyDufEbJ2WcN-PWMiHrIBQYcN7DGliUo
       - key: FRONTEND_URL
-        value: https://localhost:3000
+        value: https://frontend2-78ov.onrender.com
       - key: FIREBASE_PROJECT_ID
         value: nexus-4b4ba
       - key: FIREBASE_DATABASE_URL
