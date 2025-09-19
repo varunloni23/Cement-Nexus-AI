@@ -19,7 +19,7 @@ const corsOptions = {
   origin: [
     'http://localhost:3000',
     'https://cement-nexus-ai.vercel.app',
-    'https://frontend2-78ov.onrender.com',
+    'https://cementai-frontend.onrender.com',
     process.env.FRONTEND_URL
   ].filter(Boolean) as string[],
   credentials: true,
