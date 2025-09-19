@@ -13,16 +13,35 @@ dotenv.config();
 
 const app = express();
 const server = createServer(app);
+
+// Enhanced CORS configuration for production
+const corsOptions = {
+  origin: [
+    'http://localhost:3000',
+    'https://cement-nexus-ai.vercel.app',
+    process.env.FRONTEND_URL
+  ].filter(Boolean) as string[],
+  credentials: true,
+  optionsSuccessStatus: 200,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+};
+
 const io = new Server(server, {
-  cors: {
-    origin: process.env.FRONTEND_URL || "http://localhost:3000",
-    methods: ["GET", "POST"]
-  }
+  cors: corsOptions
 });
 
 // Middleware
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
+
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.json({ 
+    status: 'ok', 
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV || 'development'
+  });
+});
 
 // Initialize cement plant simulator
 const simulationConfig: SimulationConfig = {
