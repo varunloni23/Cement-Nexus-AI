@@ -1,0 +1,74 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.example
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Google Cloud
+gcloud-key.json
+service-account*.json
+service-account-key.json
+
+# Firebase
+.firebase/
+firebase-debug.log
+
+# ML Models
+*.pkl
+*.joblib
+*.h5
+*.pb
+
+# Data files
+*.csv
+*.json
+data/raw/
+data/processed/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Cache
+.cache/
+*.tsbuildinfo
+
+# Additional recommended patterns
+.vercel/
+.eslintcache
+package-lock.json
+coverage/
+.nyc_output/
+*.tmp
+*.temp
+.tscache/
